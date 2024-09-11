@@ -4,7 +4,7 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UserRepositoryResponse } from './interfaces/repositoryResponse';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async createUser(
