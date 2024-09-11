@@ -9,6 +9,7 @@ import { TodoModule } from './modules/todo/todo.module';
 import { AppConfigModule } from './config/config.module';
 import { User } from './modules/users/entities/user.entity';
 import { Todo } from './modules/todo/entities/todo.entity';
+import { AppLoggerService } from './common/utils/logger.service';
 
 @Module({
   imports: [
@@ -34,6 +35,6 @@ import { Todo } from './modules/todo/entities/todo.entity';
     TodoModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppLoggerService],
 })
 export class AppModule {}
