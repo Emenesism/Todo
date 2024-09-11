@@ -5,18 +5,20 @@ import { ConfigService as NestConfigService } from '@nestjs/config';
 export class ConfigService {
   constructor(private readonly configService: NestConfigService) {}
 
-  getDatabaseConfig() {
+  get databaseConfig() {
     return {
-      dbPort: this.configService.get<number>('MYSQL_DB_PORT'),
-      dbUsername: this.configService.get<string>('DB_USERNAME'),
-      dbPassword: this.configService.get<string>('DB_PASSWORD'),
-      dbDialect: this.configService.get<string>('DB_DIALECT'),
-      dbHost: this.configService.get<string>('MYSQL_DB_HOST'),
-      dbName: this.configService.get<string>('DB_NAME'),
+      type: this.configService.get<
+        'mysql' | 'postgres' | 'mariadb' | 'sqlite' | 'mongodb'
+      >('DB_DIALECT'),
+      host: this.configService.get<string>('MYSQL_DB_HOST'),
+      port: this.configService.get<number>('MYSQL_DB_PORT'),
+      username: this.configService.get<string>('DB_USERNAME'),
+      password: this.configService.get<string>('DB_PASSWORD'),
+      database: this.configService.get<string>('DB_NAME'),
     };
   }
 
-  getJWTSecret(): number {
-    return this.configService.get<number>('JWT_SECRET');
+  get serverPort() {
+    return this.configService.get<string>('SERVER_PORT');
   }
 }
