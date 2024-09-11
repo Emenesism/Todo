@@ -7,6 +7,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { TodoModule } from './modules/todo/todo.module';
 import { AppConfigModule } from './config/config.module';
+import { User } from './modules/users/entities/user.entity';
+import { Todo } from './modules/todo/entities/todo.entity';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { AppConfigModule } from './config/config.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       synchronize: true, // Automatically create database schema (set to false in production)
-      autoLoadEntities: true, // Automatically load entities
+      entities: [User, Todo], // Add your entity classes here
     }),
     AppConfigModule,
     AuthModule,
