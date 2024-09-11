@@ -1,9 +1,15 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
-import { ulid } from 'ulid';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Generated,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
-  @PrimaryColumn({ type: 'varchar', length: 26 })
+  @PrimaryColumn({ type: 'varchar' })
+  @Generated('uuid')
   id: string;
 
   @Column()
@@ -17,8 +23,4 @@ export class User {
 
   @CreateDateColumn()
   createAt: Date;
-
-  constructor() {
-    this.id = ulid();
-  }
 }
