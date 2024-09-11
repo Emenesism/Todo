@@ -10,6 +10,7 @@ import { AppConfigModule } from './config/config.module';
 import { User } from './modules/users/entities/user.entity';
 import { Todo } from './modules/todo/entities/todo.entity';
 import { AppLoggerService } from './common/utils/logger.service';
+import { BcryptUtils } from './common/utils/password.service';
 
 @Module({
   imports: [
@@ -35,6 +36,6 @@ import { AppLoggerService } from './common/utils/logger.service';
     TodoModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AppLoggerService],
+  providers: [AppService, AppLoggerService, BcryptUtils],
 })
 export class AppModule {}
