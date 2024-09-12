@@ -12,7 +12,7 @@ import { User } from 'src/modules/users/entities/user.entity';
 
 @Entity()
 export class Todo {
-  @PrimaryColumn({ type: 'varchar', length: 26 })
+  @PrimaryColumn({ type: 'varchar' })
   @Generated('uuid')
   id: string;
 
@@ -30,6 +30,9 @@ export class Todo {
 
   @CreateDateColumn()
   createAt: Date;
+
+  @Column()
+  userId: string;
 
   @ManyToOne(() => User, (user) => user.todos)
   @JoinColumn({ name: 'userId' })
