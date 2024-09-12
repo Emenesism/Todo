@@ -74,9 +74,9 @@ export class UsersService {
       };
     }
 
-    const payload: object = { email: user.data.email };
+    const payload: object = { userId: user.data.id };
 
-    const token: string = this.JWTService.sign(payload);
+    const token: string = await this.JWTService.signAsync(payload);
 
     return {
       success: true,
