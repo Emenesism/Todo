@@ -21,4 +21,8 @@ export class ConfigService {
   get serverPort() {
     return this.configService.get<string>('SERVER_PORT');
   }
+
+  get jwtSecret() {
+    return this.configService.get<string>('JWT_SECRET');
+  }
 }
