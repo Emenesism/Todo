@@ -27,8 +27,8 @@ import { BcryptUtils } from './common/utils/password.service';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: true, // Automatically create database schema (set to false in production)
-      entities: [User, Todo], // Add your entity classes here
+      synchronize: true,
+      entities: [User, Todo],
     }),
     AppConfigModule,
     AuthModule,
