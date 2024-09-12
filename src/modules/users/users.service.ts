@@ -3,10 +3,12 @@ import { UserRepository } from './repositories/user.repository';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserRepositoryResponse } from './interfaces/repositoryResponse';
 import { BcryptUtils } from 'src/common/utils/password.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
+    private readonly JWTService: JwtService,
     private readonly userRepository: UserRepository,
     private readonly passwordUtils: BcryptUtils,
   ) {}
@@ -47,5 +49,39 @@ export class UsersService {
     };
 
     return this.userRepository.createUser(userCreationData);
+  }
+  async login(
+    loginData: Partial<CreateUserDTO>,
+  ): Promise<UserRepositoryResponse> {
+    const user = await this.getUserByEmail(loginData.email);
+
+    if (!user.success) {
+      return user;
+    }
+
+    const hashedPassword: string = await this.passwordUtils.hashPassword(
+      user.data.password,
+    );
+    const status = await this.passwordUtils.comparePasswords(
+      user.data.password,
+      hashedPassword,
+    );
+
+    if (!status) {
+      return {
+        success: false,
+        message: 'Password or email is inccorect',
+      };
+    }
+
+    const payload: object = { email: user.data.email };
+
+    const token: string = this.JWTService.sign(payload);
+
+    return {
+      success: true,
+      message: 'Login successful',
+      data: { token },
+    };
   }
 }
