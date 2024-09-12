@@ -18,6 +18,7 @@ export class TodoRepository extends Repository<Todo> {
     createTodoData: CreateTodoDTO,
   ): Promise<TodoRepositoryResponse> {
     try {
+      createTodoData['isDone'] = false;
       const todo = this.create(createTodoData);
       await this.save(todo);
 
